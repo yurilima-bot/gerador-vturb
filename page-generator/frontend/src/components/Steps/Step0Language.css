@@ -1,0 +1,141 @@
+/* CONTAINER CENTRALIZAÇÃO E ESPAÇAMENTO */
+.language-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px; /* Espaço mais generoso */
+  width: 100%;
+}
+
+/* GRID DOS CARTÕES DE OPÇÃO */
+.language-options {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 600px; /* Centralizar melhor */
+  margin: 0 auto;
+}
+
+.language-card {
+  /* Base: Fundo claro, sem borda visível inicialmente, cantos arredondados */
+  background: var(--color-surface);
+  border: 1px solid transparent; /* Borda transparente inicial */
+  border-radius: var(--radius);
+  padding: 30px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.17, 0.67, 0.83, 0.67); /* Curva de animação moderna */
+  box-shadow: none;
+  flex: 1;
+  min-width: 250px;
+  max-width: 280px;
+}
+
+/* ESTADO DE HOVER (LEVANTAR O CARTÃO) */
+.language-card:hover {
+  /* Sombra pequena para 'levantar' o cartão no hover */
+  box-shadow: var(--shadow-sm);
+  background: var(--color-bg); /* Fundo branco puro no hover */
+  border-color: var(--color-border);
+}
+
+/* ESTADO ATIVO (SELECIONADO) */
+.language-card.active {
+  /* Borda primária forte, fundo mais claro, e Sombra maior */
+  border-color: var(--color-primary);
+  background: var(--color-bg);
+  box-shadow: 0 0 0 1px var(--color-primary), var(--shadow-md); /* Borda primária + Sombra média */
+  transform: translateY(-2px); /* Efeito sutil de 'pressão' */
+}
+
+/* ELEMENTOS DE CONTEÚDO */
+.language-flag {
+  font-size: 40px;
+  margin-bottom: 16px; /* Mais espaço */
+}
+
+.language-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 4px 0;
+}
+
+.language-description {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* BADGE DE CONFIRMAÇÃO (Resultado) */
+.language-selected {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  /* Estilo clean: Borda sutil e texto primário */
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: 8px 16px;
+  border-radius: 9999px; /* Formato 'Pill' */
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* SEÇÃO DE IDIOMAS ESTRANGEIROS */
+.section-label {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+  text-align: center;
+}
+
+.foreign-languages {
+  max-width: 600px;
+}
+
+.language-card.small {
+  padding: 25px 20px;
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 900px) {
+  .language-options {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .language-card {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 650px) {
+  .language-options {
+    gap: 15px;
+  }
+
+  .language-card {
+    padding: 24px 20px;
+    text-align: left; /* Alinha o conteúdo à esquerda no celular para melhor leitura */
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .language-flag {
+    font-size: 32px;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .language-content {
+    /* Wrapper para título e descrição no layout mobile */
+    text-align: left;
+  }
+}

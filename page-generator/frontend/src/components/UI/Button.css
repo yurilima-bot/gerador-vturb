@@ -1,0 +1,115 @@
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Mais espaço */
+    padding: 10px 18px; /* Padding ajustado para ser mais alto */
+    font-size: 14px;
+    font-weight: 600; /* Mais destaque */
+    border: 1px solid transparent; /* Sempre definir borda para evitar pulo no hover */
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+    white-space: nowrap;
+    line-height: 1; /* Ajustado para 1 para melhor centralização */
+}
+
+.button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* --- BOTÃO PRIMÁRIO (Azul) --- */
+.button-primary {
+    background: var(--color-primary);
+    color: var(--color-bg);
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-sm);
+}
+
+.button-primary:hover:not(:disabled) {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    box-shadow: var(--shadow-md); /* Sombra maior no hover */
+}
+
+/* --- BOTÃO SECUNDÁRIO (Borda/Sutil) --- */
+.button-secondary {
+    background: var(--color-bg);
+    color: var(--color-text);
+    border-color: var(--color-border);
+    box-shadow: var(--shadow-sm);
+}
+
+.button-secondary:hover:not(:disabled) {
+    background: var(--color-surface); /* Fundo sutil no hover */
+    border-color: var(--color-text-secondary);
+    box-shadow: var(--shadow-md);
+}
+
+/* --- BOTÃO GHOST/LINK --- */
+.button-ghost {
+    background: transparent;
+    color: var(--color-text-secondary);
+    border: 1px solid transparent;
+    box-shadow: none;
+}
+
+.button-ghost:hover:not(:disabled) {
+    background: var(--color-surface); /* Fundo sutil no hover */
+    color: var(--color-text);
+    border-color: transparent;
+}
+
+/* --- BOTÃO DE SUCESSO (Verde) --- */
+.button-success {
+    background: var(--color-success);
+    color: var(--color-bg);
+    border-color: var(--color-success);
+    box-shadow: var(--shadow-sm);
+}
+
+.button-success:hover:not(:disabled) {
+    background: #0d9472; /* Um verde ligeiramente mais escuro */
+    border-color: #0d9472;
+}
+
+/* --- TAMANHOS --- */
+.button-sm {
+    padding: 7px 12px;
+    font-size: 13px;
+}
+
+.button-lg {
+    padding: 12px 20px;
+    font-size: 16px;
+}
+
+/* --- LOADING (Mantido) --- */
+.button-loading {
+    position: relative;
+    color: transparent !important;
+}
+
+.button-loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+    .button {
+        padding: 11px 16px;
+        font-size: 15px;
+    }
+}

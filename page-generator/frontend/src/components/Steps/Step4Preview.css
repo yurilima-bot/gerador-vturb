@@ -1,0 +1,295 @@
+/* CONTAINER GERAL */
+.preview-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px; /* Espaço entre os cartões */
+    width: 100%;
+    max-width: 720px; /* Limite de largura para leitura */
+    margin: 0 auto;
+}
+
+/* --- CARD BASE (Bloco de Informações) --- */
+.preview-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 0; /* Remove padding do container, coloca no body */
+    box-shadow: var(--shadow-sm);
+}
+
+.preview-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.preview-card-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0;
+}
+
+.preview-card-icon {
+    font-size: 20px;
+}
+
+.preview-card-body {
+    padding: 24px;
+}
+
+/* --- INFORMAÇÕES GERAIS (Layout de duas colunas) --- */
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--color-border);
+    font-size: 14px;
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+    padding-right: 16px;
+}
+
+.info-value {
+    color: var(--color-text);
+    text-align: right;
+    word-break: break-all;
+    font-weight: 500;
+}
+
+.info-link {
+    color: var(--color-primary);
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 400;
+}
+
+/* --- BADGES DE STATUS (vTurb) --- */
+.status-row {
+    display: flex;
+    gap: 12px;
+}
+
+.status-badge {
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 9999px; /* Pill */
+}
+
+.status-ok {
+    background: #ecfdf5; /* Verde muito claro */
+    color: var(--color-success);
+    border: 1px solid #a7f3d0;
+}
+
+.status-missing {
+    background: #fef2f2; /* Vermelho muito claro */
+    color: var(--color-error);
+    border: 1px solid #fecaca;
+}
+
+/* --- TABELA DE PRODUTOS --- */
+.products-table {
+    display: grid;
+    /* Ajuste de colunas para melhor leitura */
+    grid-template-columns: 1fr 1fr 1.5fr; 
+    font-size: 14px;
+    gap: 10px;
+}
+
+.products-table-header {
+    font-weight: 600;
+    color: var(--color-text);
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--color-border);
+    margin-bottom: 8px;
+    display: contents; /* Aplica o estilo de grid nos filhos */
+}
+
+.products-table-header span {
+    padding-bottom: 8px;
+}
+
+.products-table-row {
+    display: contents;
+    border-bottom: 1px solid var(--color-border);
+    padding: 10px 0;
+}
+
+.products-table-row > span {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+}
+
+.products-table-row:last-child > span {
+    border-bottom: none;
+}
+
+.product-price, .product-installment {
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.product-label {
+    font-weight: 500;
+}
+
+.products-empty {
+    grid-column: 1 / span 3;
+    text-align: center;
+    color: var(--color-text-secondary);
+    padding: 20px 0;
+}
+
+/* --- ÁREA DE DOWNLOAD E BOTÃO --- */
+.download-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 24px;
+    background: var(--color-surface); /* Fundo sutil para a área de ação */
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+}
+
+.btn-download {
+    /* Base: Segue o estilo de botão primário */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+    background: var(--color-primary);
+    color: var(--color-bg);
+    box-shadow: var(--shadow-sm);
+    width: 100%;
+    max-width: 320px;
+}
+
+.btn-download:hover:not(:disabled) {
+    background: var(--color-primary-hover);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-download:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.download-note {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    margin: 0;
+    text-align: center;
+}
+
+/* --- SPINNER DE LOADING --- */
+.btn-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* --- BANNER DE ERRO --- */
+.error-banner {
+    padding: 12px 20px;
+    border-radius: var(--radius);
+    background: #fef2f2;
+    color: var(--color-error);
+    border: 1px solid var(--color-error);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 768px) {
+    .preview-card {
+        border-radius: 0;
+        box-shadow: none;
+        border-left: none;
+        border-right: none;
+    }
+
+    .preview-card-header {
+        padding: 16px 20px;
+    }
+
+    .preview-card-body {
+        padding: 20px;
+    }
+
+    .info-row {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 0;
+    }
+
+    .info-label {
+        margin-bottom: 4px;
+        padding-right: 0;
+    }
+
+    .info-value {
+        text-align: left;
+    }
+
+    .products-table {
+        /* Layout empilhado para mobile */
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .products-table-header {
+        display: none; /* Esconde o cabeçalho no mobile */
+    }
+
+    .products-table-row {
+        display: flex;
+        flex-direction: column;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--color-border);
+        gap: 4px;
+    }
+
+    .products-table-row > span {
+        border-bottom: none;
+        padding: 0;
+    }
+
+    .product-label {
+        font-weight: 600;
+        color: var(--color-text);
+        margin-top: 8px; /* Espaçamento entre produtos */
+        display: block;
+    }
+
+    .download-area {
+        padding: 20px;
+    }
+}

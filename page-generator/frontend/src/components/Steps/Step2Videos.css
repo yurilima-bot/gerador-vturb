@@ -1,0 +1,77 @@
+.videos-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* Aumentar o espaçamento entre grupos para maior clareza */
+}
+
+.video-group {
+  /* Base: Fundo branco puro, sem fundo colorido ou borda inicial chamativa */
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  /* Usando o raio de borda padrão para consistência */
+  border-radius: var(--radius);
+  padding: 24px; /* Padding mais generoso */
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm); /* Sombra sutil para destacar o bloco */
+}
+
+.video-group:hover {
+  /* Hover sutil: Borda mais escura (texto secundário) */
+  border-color: var(--color-text-secondary);
+}
+
+.video-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Alinhamento ao topo para lidar com o badge e título */
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-border); /* Separador visual limpo */
+}
+
+.video-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+/* NOVO ESTILO PARA O BADGE (Pill Sutil) */
+.required-badge {
+  font-size: 11px;
+  font-weight: 500;
+  /* Fundo sutil (cinza claro) e texto secundário */
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  padding: 3px 8px; /* Padding ajustado para o formato 'pill' */
+  border-radius: 9999px; /* Formato Pill/Cápsula */
+  border: 1px solid var(--color-border); /* Borda sutil */
+  line-height: 1;
+}
+
+/* --- ESTILO PARA O BOTÃO ADICIONAR VÍDEO --- */
+/* (Este CSS é para o Button component, mas ajuda a contextuallizar o estilo) */
+.videos-container > .button-secondary {
+  width: 100%;
+  margin-top: 16px;
+}
+
+@media (max-width: 768px) {
+  .video-group {
+    padding: 18px;
+  }
+
+  .video-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding-bottom: 12px;
+  }
+
+  .video-title {
+    font-size: 15px;
+  }
+}

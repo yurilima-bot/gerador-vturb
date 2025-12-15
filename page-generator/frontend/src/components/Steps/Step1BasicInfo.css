@@ -1,0 +1,61 @@
+/* --- SEÇÃO VTURB --- */
+.vturb-section {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--color-border);
+}
+
+.section-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 20px;
+}
+
+/* --- TEXTAREA GROUP --- */
+.textarea-group {
+    margin-bottom: 20px;
+}
+
+.textarea-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text);
+    margin-bottom: 6px;
+}
+
+.textarea-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 13px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    resize: vertical;
+    transition: border-color 0.15s ease;
+    line-height: 1.5;
+}
+
+.textarea-input::placeholder {
+    color: var(--color-text-secondary);
+    opacity: 0.6;
+}
+
+.textarea-input:hover {
+    border-color: var(--color-text-secondary);
+}
+
+.textarea-input:focus {
+    outline: none;
+    border-color: var(--color-text);
+}
+
+.textarea-help {
+    display: block;
+    font-size: 11px;
+    color: var(--color-text-secondary);
+    margin-top: 4px;
+}

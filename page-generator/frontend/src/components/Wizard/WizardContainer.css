@@ -1,0 +1,165 @@
+.wizard-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centraliza o conteúdo verticalmente na tela */
+    background: var(--color-surface); /* Usa a cor de superfície como fundo para criar uma "folha de papel" */
+    overflow: hidden;
+}
+
+.wizard-content {
+    /* Define a 'folha de papel' ou modal central */
+    width: 100%;
+    max-width: 800px; /* Largura um pouco maior para um visual mais profissional */
+    height: 90%; /* Limita a altura para que não cubra 100% da tela */
+    max-height: 800px; /* Altura máxima para desktop */
+    display: flex;
+    flex-direction: column;
+    
+    /* Estilo de Cartão Limpo */
+    background: var(--color-bg); 
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md); /* Sombra suave para levantar o wizard da superfície */
+    border: 1px solid var(--color-border); /* Borda muito sutil */
+    
+    overflow: hidden; /* Garante que o conteúdo interno não vaze */
+}
+
+/* --- CABEÇALHO (Header) --- */
+.wizard-header {
+    padding: 32px 40px 16px; /* Ajuste o padding para harmonizar */
+    flex-shrink: 0;
+}
+
+.wizard-header-content {
+    max-width: 100%;
+}
+
+.wizard-title {
+    font-size: 28px; /* Ligeiramente menor para mais sofisticação */
+    font-weight: 700;
+    color: var(--color-text);
+    letter-spacing: -0.02em;
+    margin: 0 0 4px 0;
+    line-height: 1.2;
+}
+
+.wizard-subtitle {
+    font-size: 15px;
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* --- CONTEÚDO DA ETAPA --- */
+.wizard-step-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 32px 40px; /* Padding ajustado para corresponder ao header */
+    margin: 0;
+    /* Linha divisória sutil para separar o header */
+    border-top: 1px solid var(--color-border);
+}
+
+.wizard-step-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.wizard-step-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.wizard-step-content::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 4px;
+}
+
+.wizard-step-content::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-secondary);
+}
+
+.wizard-step-content > div {
+    animation: fadeIn 0.2s ease;
+}
+
+/* --- FOOTER (Ações) --- */
+.wizard-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px; /* Padding ajustado */
+    /* Linha divisória sutil para separar o footer */
+    border-top: 1px solid var(--color-border);
+    flex-shrink: 0;
+    gap: 16px;
+    background: var(--color-surface); /* Fundo sutil para o rodapé */
+}
+
+.wizard-actions-left,
+.wizard-actions-right {
+    display: flex;
+    gap: 8px;
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(4px);
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0);
+    }
+}
+
+/* --- RESPONSIVIDADE (Celular) --- */
+@media (max-width: 850px) {
+    .wizard-container {
+        align-items: flex-start; /* Alinha o conteúdo ao topo para telas menores */
+    }
+
+    .wizard-content {
+        max-width: 100%;
+        height: 100vh; /* Ocupa a tela inteira no celular */
+        max-height: none;
+        border-radius: 0; /* Remove borda arredondada no celular */
+        box-shadow: none; /* Remove a sombra no celular */
+        border: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .wizard-content {
+        padding: 0;
+    }
+
+    .wizard-header {
+        padding: 32px 24px 16px;
+    }
+
+    .wizard-title {
+        font-size: 26px;
+    }
+
+    .wizard-step-content {
+        padding: 24px 24px;
+    }
+
+    .wizard-actions {
+        flex-direction: column-reverse;
+        gap: 10px;
+        padding: 16px 24px;
+    }
+
+    .wizard-actions-left,
+    .wizard-actions-right {
+        width: 100%;
+    }
+
+    .wizard-actions-left button,
+    .wizard-actions-right button {
+        width: 100%;
+    }
+}

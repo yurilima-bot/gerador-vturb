@@ -1,0 +1,99 @@
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px; /* Reduzido levemente para um look mais compacto */
+    margin-bottom: 24px;
+}
+
+.input-label {
+    font-size: 14px;
+    font-weight: 500; /* Ligeiramente mais fino */
+    color: var(--color-text);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.input-optional {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--color-text-secondary);
+}
+
+.input-field {
+    width: 100%;
+    /* Padding ajustado para uma altura mais confortável */
+    padding: 10px 12px; 
+    font-size: 15px;
+    /* Variáveis de borda, radius e fundo */
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius); 
+    background: var(--color-surface); 
+    color: var(--color-text);
+    transition: all 0.2s ease;
+    outline: none;
+    line-height: 1.5;
+    box-shadow: var(--shadow-sm); /* Sombra sutil para levantar o campo */
+}
+
+.input-field:hover {
+    /* Borda sutilmente mais escura no hover */
+    border-color: var(--color-text-secondary); 
+}
+
+.input-field:focus {
+    /* Foco: Borda primária e fundo branco puro */
+    border-color: var(--color-primary); 
+    background: var(--color-bg); 
+    /* Adiciona um anel de foco sutil */
+    box-shadow: 0 0 0 1px var(--color-primary); 
+}
+
+.input-field::placeholder {
+    color: var(--color-text-secondary);
+    opacity: 0.6; /* Placeholder mais suave */
+}
+
+/* ESTADO DE ERRO */
+.input-error {
+    border-color: var(--color-error) !important;
+    box-shadow: 0 0 0 1px var(--color-error) !important;
+}
+
+.input-error:focus {
+    /* Fundo levemente rosado no foco de erro, se preferir; Senão, manter o branco puro */
+    background: var(--color-bg); 
+}
+
+.input-help {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+}
+
+.input-error-message {
+    font-size: 13px;
+    color: var(--color-error);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    line-height: 1.4;
+}
+
+textarea.input-field {
+    min-height: 100px;
+    resize: vertical;
+    font-family: inherit;
+    line-height: 1.5;
+}
+
+select.input-field {
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .input-field {
+        padding: 10px 12px;
+        font-size: 16px;
+    }
+}

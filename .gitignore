@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+build/
+**/dist/
+**/build/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Arquivos de teste (não enviar para produção)
+teste/
+
+# Arquivos antigos/exemplo
+generator-v2.js
+EXEMPLO-USO.md
+GUIA-RAPIDO.md
+INDICE.md
+INICIO.txt
+RESUMO-FINAL.md
+template-*.php
+default.php
+assets/
+
+# Manter apenas a pasta page-generator que é o projeto atual

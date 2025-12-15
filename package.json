@@ -1,0 +1,21 @@
+{
+  "name": "gerador-paginas-hostinger",
+  "version": "1.0.0",
+  "description": "Gerador automático de páginas baseado em template default.php para Hostinger",
+  "main": "generator.js",
+  "scripts": {
+    "start": "node generator.js",
+    "generate": "node generator.js"
+  },
+  "keywords": [
+    "generator",
+    "landing-page",
+    "hostinger",
+    "automation"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}

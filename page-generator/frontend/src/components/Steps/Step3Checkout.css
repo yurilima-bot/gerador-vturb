@@ -1,0 +1,220 @@
+.checkout-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* Aumenta o espaçamento entre grupos */
+}
+
+.product-group {
+  /* Base: Fundo branco, borda sutil, sombra */
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm); /* Sombra suave para destacar o bloco */
+}
+
+.product-group:hover {
+  /* Hover sutil: Borda um pouco mais escura */
+  border-color: var(--color-text-secondary);
+}
+
+.product-header {
+  /* Separador sutil para o cabeçalho */
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.product-number {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* LINHA DE QUANTIDADE DE FRASCOS */
+.quantity-input {
+  flex: 0 0 100px;
+}
+
+.number-input {
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  transition: border-color 0.15s ease;
+}
+
+.number-input:hover {
+  border-color: var(--color-text-secondary);
+}
+
+.number-input:focus {
+  outline: none;
+  border-color: var(--color-text);
+}
+
+/* LINHA DE PREÇOS REFORMULADA (Usando Flexbox para controle mais limpo) */
+.price-row {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* Garante que os inputs dentro da price-row ocupem o espaço de forma igual */
+.price-row > div {
+  flex: 1;
+}
+
+/* --- LINHA DE PARCELAS --- */
+.installment-row {
+  display: flex;
+  gap: 20px;
+  margin-top: 8px;
+}
+
+.installment-select {
+  flex: 0 0 100px; /* Largura fixa para o select */
+}
+
+.installment-value {
+  flex: 1; /* O input de valor ocupa o resto */
+}
+
+.input-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: 6px;
+}
+
+.select-input {
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2365656b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+
+.select-input:hover {
+  border-color: var(--color-text-secondary);
+}
+
+.select-input:focus {
+  outline: none;
+  border-color: var(--color-text);
+}
+
+/* --- VALOR CALCULADO --- */
+.calculated-value {
+  display: flex;
+  align-items: center;
+  height: 42px;
+  padding: 0 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.input-help {
+  display: block;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  margin-top: 4px;
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 768px) {
+  .product-group {
+    padding: 18px;
+  }
+
+  .product-header {
+    margin-bottom: 18px;
+  }
+
+  .price-row {
+    flex-direction: column; /* Pilha vertical no celular */
+    gap: 0; /* O espaçamento é gerenciado pelo margin-bottom do input-group */
+  }
+
+  .installment-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .installment-select {
+    flex: 1;
+    margin-bottom: 16px;
+  }
+}
+
+/* ====================================== */
+/* ESTILOS PARA OFERTAS ESTRANGEIRAS */
+/* ====================================== */
+
+.foreign-row {
+  margin-top: 12px;
+}
+
+/* Preço antigo riscado */
+.calculated-value.strikethrough {
+  text-decoration: line-through;
+  color: var(--color-text-secondary);
+  font-weight: 400;
+}
+
+/* Preço por frasco destacado */
+.calculated-value.highlight {
+  color: #22c55e; /* Verde */
+  font-weight: 700;
+}
+
+/* Economia destacada */
+.calculated-value.savings {
+  color: #f59e0b; /* Amarelo/Laranja */
+  font-weight: 600;
+}
+
+/* Info de Garantia */
+.warranty-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 14px;
+}
+
+.warranty-label {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.warranty-value {
+  color: var(--color-text);
+  font-weight: 600;
+}

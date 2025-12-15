@@ -1,0 +1,118 @@
+.step-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 0 0 32px 0;
+    /* Usando variável de borda */
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 0;
+    flex-shrink: 0;
+}
+
+.step-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.step-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.15s ease;
+    cursor: pointer;
+    /* Usando variáveis de borda e fundo */
+    border: 1.5px solid var(--color-border);
+    background: var(--color-bg);
+    /* Usando variável de texto secundário */
+    color: var(--color-text-secondary);
+    flex-shrink: 0;
+}
+
+.step-circle.active {
+    /* Usando variável primária */
+    background: var(--color-primary);
+    color: var(--color-bg);
+    border-color: var(--color-primary);
+}
+
+.step-circle.completed {
+    /* Usando variável primária para borda e texto, e fundo branco */
+    background: var(--color-bg);
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.step-circle:hover:not(.active) {
+    /* Usando variável de texto secundário para hover sutil */
+    border-color: var(--color-text-secondary);
+}
+
+.step-label {
+    font-size: 13px;
+    font-weight: 500;
+    /* Usando variável de texto secundário */
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+}
+
+.step-item.active .step-label {
+    /* Usando variável de texto principal */
+    color: var(--color-text);
+}
+
+.step-item.completed .step-label {
+    /* Usando variável de texto secundário */
+    color: var(--color-text-secondary);
+}
+
+.step-connector {
+    width: 24px;
+    height: 1px;
+    /* Usando variável de borda */
+    background: var(--color-border);
+    flex-shrink: 0;
+}
+
+.step-connector.completed {
+    /* Usando variável de borda */
+    background: var(--color-border);
+}
+
+@media (min-width: 769px) {
+    .step-label {
+        display: block;
+    }
+
+    .step-connector {
+        width: 32px;
+    }
+}
+
+@media (max-width: 768px) {
+    .step-indicator {
+        padding: 0 0 24px 0;
+        overflow-x: auto;
+        justify-content: flex-start;
+    }
+
+    .step-circle {
+        width: 26px;
+        height: 26px;
+        font-size: 11px;
+    }
+
+    .step-label {
+        display: none;
+    }
+
+    .step-connector {
+        width: 16px;
+    }
+}
