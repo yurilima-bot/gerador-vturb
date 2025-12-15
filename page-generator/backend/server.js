@@ -920,7 +920,7 @@ app.post('/api/generate', async (req, res) => {
       templateFile = 'template-default-br.php';
     }
     
-    const templatePath = path.join(__dirname, '..', '..', templateFile);
+    const templatePath = path.join(__dirname, 'templates', templateFile);
     
     // Verificar se o template existe
     if (!fs.existsSync(templatePath)) {
