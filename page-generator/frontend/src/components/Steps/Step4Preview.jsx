@@ -21,7 +21,8 @@ export const downloadPageFiles = async (formData, setIsDownloading, setDownloadE
     console.log('=== ENVIANDO PARA O BACKEND ===');
     console.log(JSON.stringify(payload, null, 2));
 
-    const response = await fetch('http://localhost:3001/api/generate', {
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+    const response = await fetch(`${apiUrl}/api/generate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
