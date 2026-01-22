@@ -495,7 +495,12 @@ async function copyFolderToArchive(folderPath, archive, folder, productName, off
       const stat = fs.statSync(sourcePath);
       
       if (stat.isDirectory()) {
-        archive.directory(sourcePath, path.join(zipPrefix, item));
+        // Se for a pasta assets, copiar inteira
+        if (item === 'assets') {
+          archive.directory(sourcePath, path.join(zipPrefix, item));
+        } else {
+          archive.directory(sourcePath, path.join(zipPrefix, item));
+        }
       } else {
         // Se for index.html, fazer os replaces
         if (item === 'index.html') {
@@ -507,8 +512,8 @@ async function copyFolderToArchive(folderPath, archive, folder, productName, off
             '{{PRODUCT_NAME}}': productName,
             '{{DOMINIO_REDTRACK}}': offerType.domain || '',
             '{{DOMAIN}}': offerType.domain || '',
-            '{{VTURB_HEAD}}': `<script id="vTurbScript" src="https://scripts.converteai.net/${offerType.vturbCode || ''}/player.js"></script>`,
-            '{{VTURB_PLAYER}}': `<vturb-smartplayer id="${offerType.vturbCode || ''}" style="display: block; margin: 0 auto; width: 100%;"></vturb-smartplayer>`,
+            '{{VTURB_HEAD}}': offerType.vturbHead || '',
+            '{{VTURB_PLAYER}}': offerType.vturbPlayer || '',
             '{{FACEBOOK_PIXEL}}': '',
             // Placeholders BR
             '{{PRODUCT_1_TITLE}}': offerType.title1 || 'Kit Básico',
@@ -535,6 +540,11 @@ async function copyFolderToArchive(folderPath, archive, folder, productName, off
             '{{PRODUCT_4_INSTALLMENTS}}': offerType.installments4 || '4',
             '{{PRODUCT_4_INSTALLMENT_VALUE}}': offerType.installmentValue4 || '0,00',
             '{{PRODUCT_4_ORIGINAL_PRICE}}': offerType.originalPrice4 || '0,00',
+            // Garantia por quantidade de frascos
+            '{{WARRANTY_1_BOTTLE}}': offerType.warranty1Bottle || '60 dias',
+            '{{WARRANTY_3_BOTTLES}}': offerType.warranty3Bottles || '180 dias',
+            '{{WARRANTY_5_BOTTLES}}': offerType.warranty5Bottles || '300 dias',
+            '{{WARRANTY_10_BOTTLES}}': offerType.warranty10Bottles || '600 dias',
             // Placeholders EN
             '{{PRODUCT_1_SAVE}}': offerType.save1 || '$0',
             '{{PRODUCT_1_PRICE_OLD}}': offerType.priceOld1 || '$0',
@@ -632,6 +642,17 @@ app.post('/api/generate', async (req, res) => {
         installments4: '4',
         installmentValue4: '52,99',
         originalPrice4: '197,00',
+        // Garantia por quantidade de frascos
+        warranty1Bottle: '60 dias',
+        warranty2Bottles: '120 dias',
+        warranty3Bottles: '180 dias',
+        warranty4Bottles: '240 dias',
+        warranty5Bottles: '300 dias',
+        warranty6Bottles: '360 dias',
+        warranty7Bottles: '420 dias',
+        warranty8Bottles: '480 dias',
+        warranty9Bottles: '540 dias',
+        warranty10Bottles: '600 dias',
         videos: finalVideos
       });
     }
