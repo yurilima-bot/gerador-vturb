@@ -51,12 +51,17 @@ function App() {
       id: 'checkout',
       label: 'Checkout',
       title: 'Configuração de Produtos',
-      description: 'Configure os 3 produtos/kits da sua página',
+      description: 'Configure os 4 produtos/kits da sua página',
       component: Step3Checkout,
       validate: (data) => {
         const errors = {};
         const products = data.products || [];
         const isForeignOffer = data.offerType === 'en' || data.offerType === 'de';
+        
+        // Validar se temos exatamente 4 produtos
+        if (products.length !== 4) {
+          errors.productsCount = 'É necessário configurar exatamente 4 produtos';
+        }
         
         products.forEach((product, index) => {
           if (isForeignOffer) {

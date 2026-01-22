@@ -11,20 +11,22 @@ const Step3Checkout = ({ formData, updateFormData, errors }) => {
     const sharedLink = formData.checkoutLink || '';
 
     const initialPricesBR = [
+        { quantity: '10', originalPrice: '', installments: '12', installmentValue: '' },
         { quantity: '5', originalPrice: '', installments: '12', installmentValue: '' },
         { quantity: '3', originalPrice: '', installments: '12', installmentValue: '' },
-        { quantity: '1', originalPrice: '', installments: '12', installmentValue: '' }
+        { quantity: '1', originalPrice: '', installments: '4', installmentValue: '' }
     ];
 
     const initialPricesForeign = [
         { quantity: '5', pricePerBottle: '', priceNew: '', priceOld: '' },
         { quantity: '3', pricePerBottle: '', priceNew: '', priceOld: '' },
+        { quantity: '1', pricePerBottle: '', priceNew: '', priceOld: '' },
         { quantity: '1', pricePerBottle: '', priceNew: '', priceOld: '' }
     ];
 
     const initialPrices = isForeignOffer ? initialPricesForeign : initialPricesBR;
 
-    const prices = formData.products && formData.products.length === 3 
+    const prices = formData.products && formData.products.length === 4 
         ? formData.products.map((p, i) => ({
             ...initialPrices[i],
             ...p,

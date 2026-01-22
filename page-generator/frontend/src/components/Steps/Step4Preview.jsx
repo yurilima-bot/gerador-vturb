@@ -1,21 +1,56 @@
 import { useState } from 'react';
 import './Step4Preview.css';
 
+// Função auxiliar para cálculo de parcelas
+const calculateInstallment = (price, installments) => {
+  const numericPrice = parseFloat((price || '0').replace(/[^\d,.-]/g, '').replace(',', '.')) || 0;
+  const numInstallments = parseInt(installments) || 1;
+  if (numericPrice <= 0) return '0,00';
+  return (numericPrice / numInstallments).toFixed(2).replace('.', ',');
+};
+
 // Função de download exportada
 export const downloadPageFiles = async (formData, setIsDownloading, setDownloadError) => {
   setIsDownloading(true);
   setDownloadError(null);
 
   try {
+    // Mapear produtos para o formato esperado pelo servidor
+    const products = formData.products || [];
+    const offerTypePayload = {
+      br: formData.offerType === 'br',
+      en: formData.offerType === 'en',
+      de: formData.offerType === 'de'
+    };
+
+    // Adicionar dados dos produtos
+    products.forEach((product, index) => {
+      const i = index + 1;
+      const quantity = product.quantity || '1';
+      
+      offerTypePayload[`title${i}`] = product.title || (i === 4 ? 'Kit Básico' : `${quantity} Frascos`);
+      offerTypePayload[`subtitle${i}`] = product.subtitle || `Suficiente para ${quantity} ${quantity === '1' ? 'mês' : 'meses'}`;
+      offerTypePayload[`checkout${i}`] = product.checkoutLink || formData.checkoutLink || '#';
+      offerTypePayload[`installments${i}`] = product.installments || '12';
+      offerTypePayload[`installmentValue${i}`] = product.installmentValue || calculateInstallment(product.originalPrice, product.installments);
+      offerTypePayload[`originalPrice${i}`] = product.originalPrice || '0,00';
+      
+      // Para ofertas estrangeiras
+      if (formData.offerType === 'en' || formData.offerType === 'de') {
+        offerTypePayload[`save${i}`] = product.save || '$0';
+        offerTypePayload[`priceOld${i}`] = product.priceOld || '$0';
+        offerTypePayload[`priceNew${i}`] = product.priceNew || '$0';
+        offerTypePayload[`pricePerBottle${i}`] = product.pricePerBottle || '0';
+      }
+    });
+
     const payload = {
-      offerType: formData.offerType || 'br',
+      language: formData.offerType || 'br',
       productName: formData.productName || '',
-      siteDomain: formData.siteDomain || '',
-      vturbHead: formData.vturbHead || '',
-      vturbPlayer: formData.vturbPlayer || '',
-      checkoutLink: formData.checkoutLink || '',
+      domain: formData.siteDomain || '',
+      vturbCode: formData.vturbHead || '',
       videos: formData.videos || [],
-      products: formData.products || []
+      offerType: offerTypePayload
     };
 
     console.log('=== ENVIANDO PARA O BACKEND ===');
@@ -59,14 +94,6 @@ export const downloadPageFiles = async (formData, setIsDownloading, setDownloadE
 function Step4Preview({ formData, isDownloading, downloadError }) {
   // Garantir que formData existe
   const data = formData || {};
-
-  // Calcular valor da parcela para exibição (apenas para ofertas BR)
-  const calculateInstallment = (price, installments) => {
-    const numericPrice = parseFloat((price || '0').replace(/[^\d,.-]/g, '').replace(',', '.')) || 0;
-    const numInstallments = parseInt(installments) || 1;
-    if (numericPrice <= 0) return '0,00';
-    return (numericPrice / numInstallments).toFixed(2).replace('.', ',');
-  };
 
   const isForeignOffer = data.offerType === 'en' || data.offerType === 'de';
   const products = data.products || [];
