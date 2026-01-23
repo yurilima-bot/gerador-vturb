@@ -15,6 +15,93 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// Função para calcular garantia dinamicamente baseada na quantidade de frascos
+function calculateWarranty(bottles) {
+  const daysPerBottle = 60;
+  const totalDays = bottles * daysPerBottle;
+  return `${totalDays} dias`;
+}
+
+// Função para extrair quantidade de frascos do título e calcular garantia
+function calculateWarrantyFromTitle(title) {
+  // Procurar por números no título (ex: "1 Frasco", "5 Frascos", "10 Frascos", "2 Bottles", "6 Flaschen")
+  const match = title.match(/(\d+)\s*(frasco|frascos|bottle|bottles|flaschen)/i);
+  if (match) {
+    const bottles = parseInt(match[1]);
+    return calculateWarranty(bottles);
+  }
+  // Se não encontrar número, assume 1 frasco como padrão
+  return calculateWarranty(1);
+}
+
+// Função para calcular valor economizado (preço antigo - preço novo)
+function calculateSavings(priceOld, priceNew, currency = null) {
+  // Remover símbolos de moeda e converter para número
+  const oldPrice = parseFloat(priceOld.replace(/[^0-9.]/g, ''));
+  const newPrice = parseFloat(priceNew.replace(/[^0-9.]/g, ''));
+  
+  if (isNaN(oldPrice) || isNaN(newPrice)) {
+    // Se não foi especificada moeda, tentar detectar do preço antigo
+    if (!currency && priceOld) {
+      if (priceOld.includes('€')) currency = '€';
+      else if (priceOld.includes('$')) currency = '$';
+      else currency = '$';
+    } else if (!currency) {
+      currency = '$';
+    }
+    return `${currency}0`;
+  }
+  
+  // Se não foi especificada moeda, tentar detectar do preço antigo
+  if (!currency && priceOld) {
+    if (priceOld.includes('€')) currency = '€';
+    else if (priceOld.includes('$')) currency = '$';
+    else currency = '$';
+  } else if (!currency) {
+    currency = '$';
+  }
+  
+  const savings = oldPrice - newPrice;
+  return `${currency}${savings.toFixed(0)}`;
+}
+
+// Função para calcular preço por frasco (preço novo ÷ número de frascos)
+function calculatePricePerBottle(priceNew, title, currency = null) {
+  // Extrair número de frascos do título
+  const match = title.match(/(\d+)\s*(frasco|frascos|bottle|bottles|flaschen)/i);
+  let bottles = 1;
+  if (match) {
+    bottles = parseInt(match[1]);
+  }
+  
+  // Remover símbolos de moeda e converter para número
+  const newPrice = parseFloat(priceNew.replace(/[^0-9.]/g, ''));
+  
+  if (isNaN(newPrice) || bottles === 0) {
+    // Se não foi especificada moeda, tentar detectar do preço novo
+    if (!currency && priceNew) {
+      if (priceNew.includes('€')) currency = '€';
+      else if (priceNew.includes('$')) currency = '$';
+      else currency = '$';
+    } else if (!currency) {
+      currency = '$';
+    }
+    return `${currency}0`;
+  }
+  
+  // Se não foi especificada moeda, tentar detectar do preço novo
+  if (!currency && priceNew) {
+    if (priceNew.includes('€')) currency = '€';
+    else if (priceNew.includes('$')) currency = '$';
+    else currency = '$';
+  } else if (!currency) {
+    currency = '$';
+  }
+  
+  const pricePerBottle = newPrice / bottles;
+  return pricePerBottle.toFixed(0);
+}
+
 function applyReplacements(content, replacements) {
   let output = content;
   for (const [placeholder, value] of Object.entries(replacements)) {
@@ -485,110 +572,110 @@ async function copyFolderToArchive(folderPath, archive, folder, productName, off
 
   const folderName = path.join(__dirname, 'templates', folder);
   
-  async function copyRecursive(sourceDir, targetDir, productName, offerType) {
-    const items = fs.readdirSync(sourceDir);
+  // Primeiro, copiar a pasta assets inteira
+  const assetsPath = path.join(folderName, 'assets');
+  if (fs.existsSync(assetsPath)) {
+    archive.directory(assetsPath, path.join(zipPrefix, 'assets'));
+  }
+  
+  // Copiar a pasta politicas inteira
+  const politicasPath = path.join(folderName, 'politicas');
+  if (fs.existsSync(politicasPath)) {
+    archive.directory(politicasPath, path.join(zipPrefix, 'politicas'));
+  }
+  
+  // Processar apenas os arquivos na raiz
+  const items = fs.readdirSync(folderName);
+  
+  for (const item of items) {
+    const sourcePath = path.join(folderName, item);
+    const stat = fs.statSync(sourcePath);
     
-    for (const item of items) {
-      const sourcePath = path.join(sourceDir, item);
-      const targetPath = path.join(targetDir, item);
-      
-      const stat = fs.statSync(sourcePath);
-      
-      if (stat.isDirectory()) {
-        // Se for a pasta assets, copiar inteira
-        if (item === 'assets') {
-          archive.directory(sourcePath, path.join(zipPrefix, item));
-        } else {
-          archive.directory(sourcePath, path.join(zipPrefix, item));
+    if (!stat.isDirectory()) {
+      // Se for index.html, fazer os replaces
+      if (item === 'index.html') {
+        let content = fs.readFileSync(sourcePath, 'utf8');
+        
+        // Fazer os replaces no index.html
+        const replacements = {
+          '{{NOME_PRODUTO}}': productName,
+          '{{PRODUCT_NAME}}': productName,
+          '{{DOMINIO_REDTRACK}}': offerType.domain || '',
+          '{{DOMAIN}}': offerType.domain || '',
+          '{{VTURB_HEAD}}': offerType.vturbHead || '',
+          '{{VTURB_PLAYER}}': offerType.vturbPlayer || '',
+          '{{FACEBOOK_PIXEL}}': '',
+          // Placeholders BR
+          '{{PRODUCT_1_TITLE}}': offerType.title1 || 'Kit Básico',
+          '{{PRODUCT_1_SUBTITLE}}': offerType.subtitle1 || 'Suficiente para 1 mês',
+          '{{PRODUCT_1_CHECKOUT_LINK}}': offerType.checkout1 || '#',
+          '{{PRODUCT_1_INSTALLMENTS}}': offerType.installments1 || '12',
+          '{{PRODUCT_1_INSTALLMENT_VALUE}}': offerType.installmentValue1 || '0,00',
+          '{{PRODUCT_1_ORIGINAL_PRICE}}': offerType.originalPrice1 || '0,00',
+          '{{PRODUCT_2_TITLE}}': offerType.title2 || 'Kit Intermediário',
+          '{{PRODUCT_2_SUBTITLE}}': offerType.subtitle2 || 'Suficiente para 3 meses',
+          '{{PRODUCT_2_CHECKOUT_LINK}}': offerType.checkout2 || '#',
+          '{{PRODUCT_2_INSTALLMENTS}}': offerType.installments2 || '12',
+          '{{PRODUCT_2_INSTALLMENT_VALUE}}': offerType.installmentValue2 || '0,00',
+          '{{PRODUCT_2_ORIGINAL_PRICE}}': offerType.originalPrice2 || '0,00',
+          '{{PRODUCT_3_TITLE}}': offerType.title3 || 'Kit Avançado',
+          '{{PRODUCT_3_SUBTITLE}}': offerType.subtitle3 || 'Suficiente para 3 meses',
+          '{{PRODUCT_3_CHECKOUT_LINK}}': offerType.checkout3 || '#',
+          '{{PRODUCT_3_INSTALLMENTS}}': offerType.installments3 || '8',
+          '{{PRODUCT_3_INSTALLMENT_VALUE}}': offerType.installmentValue3 || '0,00',
+          '{{PRODUCT_3_ORIGINAL_PRICE}}': offerType.originalPrice3 || '0,00',
+          '{{PRODUCT_4_TITLE}}': offerType.title4 || 'Kit Básico',
+          '{{PRODUCT_4_SUBTITLE}}': offerType.subtitle4 || 'Suficiente para 1 mês',
+          '{{PRODUCT_4_CHECKOUT_LINK}}': offerType.checkout4 || '#',
+          '{{PRODUCT_4_INSTALLMENTS}}': offerType.installments4 || '4',
+          '{{PRODUCT_4_INSTALLMENT_VALUE}}': offerType.installmentValue4 || '0,00',
+          '{{PRODUCT_4_ORIGINAL_PRICE}}': offerType.originalPrice4 || '0,00',
+          // Garantia calculada dinamicamente baseada na quantidade de frascos no título
+          '{{WARRANTY_1_BOTTLE}}': calculateWarrantyFromTitle(offerType.title1 || 'Kit Básico'),
+          '{{WARRANTY_2_BOTTLES}}': calculateWarrantyFromTitle(offerType.title2 || 'Kit Intermediário'),
+          '{{WARRANTY_3_BOTTLES}}': calculateWarrantyFromTitle(offerType.title3 || 'Kit Avançado'),
+          '{{WARRANTY_4_BOTTLES}}': calculateWarrantyFromTitle(offerType.title4 || 'Kit Básico'),
+          // Placeholders EN - com cálculo dinâmico de economia e preço por frasco
+          '{{PRODUCT_1_SAVE}}': offerType.save1 || calculateSavings(offerType.priceOld1 || '$0', offerType.priceNew1 || '$0'),
+          '{{PRODUCT_1_PRICE_OLD}}': offerType.priceOld1 || '$0',
+          '{{PRODUCT_1_PRICE_NEW}}': offerType.priceNew1 || '$0',
+          '{{PRODUCT_1_PRICE_PER_BOTTLE}}': offerType.pricePerBottle1 || calculatePricePerBottle(offerType.priceNew1 || '$0', offerType.title1 || '1 Bottle'),
+          '{{PRODUCT_2_SAVE}}': offerType.save2 || calculateSavings(offerType.priceOld2 || '$0', offerType.priceNew2 || '$0'),
+          '{{PRODUCT_2_PRICE_OLD}}': offerType.priceOld2 || '$0',
+          '{{PRODUCT_2_PRICE_NEW}}': offerType.priceNew2 || '$0',
+          '{{PRODUCT_2_PRICE_PER_BOTTLE}}': offerType.pricePerBottle2 || calculatePricePerBottle(offerType.priceNew2 || '$0', offerType.title2 || '1 Bottle'),
+          '{{PRODUCT_3_SAVE}}': offerType.save3 || calculateSavings(offerType.priceOld3 || '$0', offerType.priceNew3 || '$0'),
+          '{{PRODUCT_3_PRICE_OLD}}': offerType.priceOld3 || '$0',
+          '{{PRODUCT_3_PRICE_NEW}}': offerType.priceNew3 || '$0',
+          '{{PRODUCT_3_PRICE_PER_BOTTLE}}': offerType.pricePerBottle3 || calculatePricePerBottle(offerType.priceNew3 || '$0', offerType.title3 || '1 Bottle'),
+        };
+        
+        content = applyReplacements(content, replacements);
+        archive.append(content, { name: path.join(zipPrefix, 'index.html') });
+      } 
+      // Se for script.js ou player.js, gerar com base na linguagem (sobrescrever o da pasta assets)
+      else if (item === 'script.js') {
+        let scriptContent;
+        if (folder.includes('BR')) {
+          scriptContent = generateScriptJS(productName, offerType.videos || []);
+        } else if (folder.includes('EUA')) {
+          scriptContent = generateScriptJSEN(productName, offerType.videos || []);
+        } else if (folder.includes('ALEMANHA')) {
+          scriptContent = generateScriptJSDE(productName, offerType.videos || []);
         }
-      } else {
-        // Se for index.html, fazer os replaces
-        if (item === 'index.html') {
-          let content = fs.readFileSync(sourcePath, 'utf8');
-          
-          // Fazer os replaces no index.html
-          const replacements = {
-            '{{NOME_PRODUTO}}': productName,
-            '{{PRODUCT_NAME}}': productName,
-            '{{DOMINIO_REDTRACK}}': offerType.domain || '',
-            '{{DOMAIN}}': offerType.domain || '',
-            '{{VTURB_HEAD}}': offerType.vturbHead || '',
-            '{{VTURB_PLAYER}}': offerType.vturbPlayer || '',
-            '{{FACEBOOK_PIXEL}}': '',
-            // Placeholders BR
-            '{{PRODUCT_1_TITLE}}': offerType.title1 || 'Kit Básico',
-            '{{PRODUCT_1_SUBTITLE}}': offerType.subtitle1 || 'Suficiente para 1 mês',
-            '{{PRODUCT_1_CHECKOUT_LINK}}': offerType.checkout1 || '#',
-            '{{PRODUCT_1_INSTALLMENTS}}': offerType.installments1 || '12',
-            '{{PRODUCT_1_INSTALLMENT_VALUE}}': offerType.installmentValue1 || '0,00',
-            '{{PRODUCT_1_ORIGINAL_PRICE}}': offerType.originalPrice1 || '0,00',
-            '{{PRODUCT_2_TITLE}}': offerType.title2 || 'Kit Intermediário',
-            '{{PRODUCT_2_SUBTITLE}}': offerType.subtitle2 || 'Suficiente para 3 meses',
-            '{{PRODUCT_2_CHECKOUT_LINK}}': offerType.checkout2 || '#',
-            '{{PRODUCT_2_INSTALLMENTS}}': offerType.installments2 || '12',
-            '{{PRODUCT_2_INSTALLMENT_VALUE}}': offerType.installmentValue2 || '0,00',
-            '{{PRODUCT_2_ORIGINAL_PRICE}}': offerType.originalPrice2 || '0,00',
-            '{{PRODUCT_3_TITLE}}': offerType.title3 || 'Kit Avançado',
-            '{{PRODUCT_3_SUBTITLE}}': offerType.subtitle3 || 'Suficiente para 5 meses',
-            '{{PRODUCT_3_CHECKOUT_LINK}}': offerType.checkout3 || '#',
-            '{{PRODUCT_3_INSTALLMENTS}}': offerType.installments3 || '12',
-            '{{PRODUCT_3_INSTALLMENT_VALUE}}': offerType.installmentValue3 || '0,00',
-            '{{PRODUCT_3_ORIGINAL_PRICE}}': offerType.originalPrice3 || '0,00',
-            '{{PRODUCT_4_TITLE}}': offerType.title4 || 'Kit Básico',
-            '{{PRODUCT_4_SUBTITLE}}': offerType.subtitle4 || 'Suficiente para 1 mês',
-            '{{PRODUCT_4_CHECKOUT_LINK}}': offerType.checkout4 || '#',
-            '{{PRODUCT_4_INSTALLMENTS}}': offerType.installments4 || '4',
-            '{{PRODUCT_4_INSTALLMENT_VALUE}}': offerType.installmentValue4 || '0,00',
-            '{{PRODUCT_4_ORIGINAL_PRICE}}': offerType.originalPrice4 || '0,00',
-            // Garantia por quantidade de frascos
-            '{{WARRANTY_1_BOTTLE}}': offerType.warranty1Bottle || '60 dias',
-            '{{WARRANTY_3_BOTTLES}}': offerType.warranty3Bottles || '180 dias',
-            '{{WARRANTY_5_BOTTLES}}': offerType.warranty5Bottles || '300 dias',
-            '{{WARRANTY_10_BOTTLES}}': offerType.warranty10Bottles || '600 dias',
-            // Placeholders EN
-            '{{PRODUCT_1_SAVE}}': offerType.save1 || '$0',
-            '{{PRODUCT_1_PRICE_OLD}}': offerType.priceOld1 || '$0',
-            '{{PRODUCT_1_PRICE_NEW}}': offerType.priceNew1 || '$0',
-            '{{PRODUCT_1_PRICE_PER_BOTTLE}}': offerType.pricePerBottle1 || '0',
-            '{{PRODUCT_2_SAVE}}': offerType.save2 || '$0',
-            '{{PRODUCT_2_PRICE_OLD}}': offerType.priceOld2 || '$0',
-            '{{PRODUCT_2_PRICE_NEW}}': offerType.priceNew2 || '$0',
-            '{{PRODUCT_2_PRICE_PER_BOTTLE}}': offerType.pricePerBottle2 || '0',
-            '{{PRODUCT_3_SAVE}}': offerType.save3 || '$0',
-            '{{PRODUCT_3_PRICE_OLD}}': offerType.priceOld3 || '$0',
-            '{{PRODUCT_3_PRICE_NEW}}': offerType.priceNew3 || '$0',
-            '{{PRODUCT_3_PRICE_PER_BOTTLE}}': offerType.pricePerBottle3 || '0',
-          };
-          
-          content = applyReplacements(content, replacements);
-          archive.append(content, { name: path.join(zipPrefix, 'index.html') });
-        } 
-        // Se for script.js ou player.js, gerar com base na linguagem
-        else if (item === 'script.js') {
-          let scriptContent;
-          if (folder.includes('BR')) {
-            scriptContent = generateScriptJS(productName, offerType.videos || []);
-          } else if (folder.includes('EUA')) {
-            scriptContent = generateScriptJSEN(productName, offerType.videos || []);
-          } else if (folder.includes('ALEMANHA')) {
-            scriptContent = generateScriptJSDE(productName, offerType.videos || []);
-          }
-          archive.append(scriptContent, { name: path.join(zipPrefix, 'assets', 'js', 'script.js') });
-        }
-        // Se for player.js, gerar sempre igual
-        else if (item === 'player.js') {
-          const playerContent = generatePlayerJS(productName, offerType.videos || []);
-          archive.append(playerContent, { name: path.join(zipPrefix, 'assets', 'js', 'player.js') });
-        }
-        // Outros arquivos, copiar normalmente
-        else {
-          archive.file(sourcePath, { name: path.join(zipPrefix, item) });
-        }
+        archive.append(scriptContent, { name: path.join(zipPrefix, 'assets', 'js', 'script.js') });
+      }
+      // Se for player.js, gerar sempre igual (sobrescrever o da pasta assets)
+      else if (item === 'player.js') {
+        const playerContent = generatePlayerJS(productName, offerType.videos || []);
+        archive.append(playerContent, { name: path.join(zipPrefix, 'assets', 'js', 'player.js') });
+      }
+      // Outros arquivos na raiz, copiar normalmente
+      else if (item !== 'script.js' && item !== 'player.js') {
+        archive.file(sourcePath, { name: path.join(zipPrefix, item) });
       }
     }
   }
-  
-  await copyRecursive(folderName, '', productName, offerType);
 }
 
 // Rota principal para gerar a página
@@ -617,7 +704,8 @@ app.post('/api/generate', async (req, res) => {
     
     // Se offerType for só {br: true} ou similar, adicionar valores padrão
     if (finalOfferType && !finalOfferType.title1) {
-      Object.assign(finalOfferType, {
+      // Valores padrão para ofertas brasileiras (parcelado)
+      const defaultBR = {
         title1: '10 Frascos',
         subtitle1: 'Suficiente para 10 meses',
         checkout1: '#',
@@ -641,20 +729,59 @@ app.post('/api/generate', async (req, res) => {
         checkout4: '#',
         installments4: '4',
         installmentValue4: '52,99',
-        originalPrice4: '197,00',
-        // Garantia por quantidade de frascos
-        warranty1Bottle: '60 dias',
-        warranty2Bottles: '120 dias',
-        warranty3Bottles: '180 dias',
-        warranty4Bottles: '240 dias',
-        warranty5Bottles: '300 dias',
-        warranty6Bottles: '360 dias',
-        warranty7Bottles: '420 dias',
-        warranty8Bottles: '480 dias',
-        warranty9Bottles: '540 dias',
-        warranty10Bottles: '600 dias',
-        videos: finalVideos
-      });
+        originalPrice4: '197,00'
+      };
+
+      // Valores padrão para ofertas estrangeiras (preço antigo e novo - save e pricePerBottle serão calculados)
+      const defaultEN = {
+        title1: '6 Bottles',
+        subtitle1: '180 Day Supply',
+        checkout1: '#',
+        priceOld1: '$294',
+        priceNew1: '$49',
+        title2: '3 Bottles',
+        subtitle2: '90 Day Supply',
+        checkout2: '#',
+        priceOld2: '$177',
+        priceNew2: '$59',
+        title3: '2 Bottles',
+        subtitle3: '60 Day Supply',
+        checkout3: '#',
+        priceOld3: '$118',
+        priceNew3: '$69'
+      };
+
+      // Valores padrão para ofertas em alemão (save e pricePerBottle serão calculados)
+      const defaultDE = {
+        title1: '6 Flaschen',
+        subtitle1: '180 Tage Lieferung',
+        checkout1: '#',
+        priceOld1: '€294',
+        priceNew1: '€49',
+        title2: '3 Flaschen',
+        subtitle2: '90 Tage Lieferung',
+        checkout2: '#',
+        priceOld2: '€177',
+        priceNew2: '€59',
+        title3: '2 Flaschen',
+        subtitle3: '60 Tage Lieferung',
+        checkout3: '#',
+        priceOld3: '€118',
+        priceNew3: '€69'
+      };
+
+      // Escolher o padrão correto baseado na linguagem (sem garantias fixas)
+      let defaults;
+      if (finalLanguage.toUpperCase() === 'BR') {
+        defaults = { ...defaultBR };
+      } else if (finalLanguage.toUpperCase() === 'DE') {
+        defaults = { ...defaultDE };
+      } else {
+        // EN é o padrão para estrangeiros
+        defaults = { ...defaultEN };
+      }
+
+      Object.assign(finalOfferType, defaults, { videos: finalVideos });
     }
     
     console.log('=== INICIANDO GERAÇÃO ===');

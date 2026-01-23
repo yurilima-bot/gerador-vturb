@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="de">
     <head>
-        <title>Video ansehen</title>
+        <title>{{PAGE_TITLE}}</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <link rel="shortcut icon" href="./assets/images/favicon.png" type="image/x-icon" />
 
         <meta
             name="description"
-            content="Natural solution." />
+            content="{{NOME_PRODUTO}} é um composto 100% natural, aprovado pela ANVISA e não possui nenhum efeito colateral. Além disso, o {{NOME_PRODUTO}} não tem contra indicações, sendo consumido por milhares de pessoas todos os dias." />
 
         <!-- preconnect -->
         <link rel="preconnect" href="https://gm.lifepuregreen.shop" crossorigin>
@@ -21,19 +21,14 @@
         <!-- css -->
 
         <!-- vTurb -->
-<script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
-<link rel="preload" href="https://scripts.converteai.net/1e62a400-0e0b-4b6a-a66f-1000efcfc58b/ab-test/69459eb239b76fcf0295e9c7/player.js" as="script">
-<link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
-<link rel="dns-prefetch" href="https://cdn.converteai.net">
-<link rel="dns-prefetch" href="https://scripts.converteai.net">
-<link rel="dns-prefetch" href="https://images.converteai.net">
-<link rel="dns-prefetch" href="https://m3u8.vturb.net">
-<link rel="dns-prefetch" href="https://api.vturb.com.br">
+        {{VTURB_HEAD}}
         <!-- Fim vTurb -->
 
         <!-- Redtrack -->
-        <script type="text/javascript" src="https://gm.lifepuregreen.shop/track.js"></script>
+        <script type="text/javascript" src="https://gm.{{DOMINIO_REDTRACK}}/track.js"></script>
         <!-- Fim Redtrack -->
+        
+        {{FACEBOOK_PIXEL}}
     </head>
 
     <body>
@@ -41,8 +36,8 @@
             <div class="header-container">
                 <div class="player-container">
                     <!-- vTurb -->
-                    <vturb-smartplayer id="ab-69459eb239b76fcf0295e9c7" style="display: block; margin: 0 auto; width: 100%; "></vturb-smartplayer> <script type="text/javascript"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/1e62a400-0e0b-4b6a-a66f-1000efcfc58b/ab-test/69459eb239b76fcf0295e9c7/player.js", s.async=!0,document.head.appendChild(s); </script>
-                    <!-- Fim vTurb -->
+                    {{VTURB_PLAYER}}
+                <!-- Fim vTurb -->
                 </div>
             </div>
 
@@ -63,11 +58,9 @@
     <div class="container">
         <div class="products-container">
             <div class="product-item most-popular smartplayer-click-event">
-                <a href="https://gm.lifepuregreen.shop/click/3" class="product-link"></a>
-
-                <div class="col">
-                    <h3 class="product-title">6 DOSEN</h3>
-                    <p class="product-description">180-Tage-Vorrat</p>
+                <a class="product-item smartplayer-click-event smartplayer-scroll-event" href="{{PRODUCT_3_CHECKOUT_LINK}}">
+                    <h3 class="product-title">{{PRODUCT_3_TITLE}}</h3>
+                    <h4 class="product-subtitle">{{PRODUCT_3_SUBTITLE}}</h4>
 
                     <div class="product-image">
                         <img src="./assets/images/products/1.webp" alt="Product Image" />
@@ -75,8 +68,8 @@
                     </div>
 
                     <div class="product-price hide-on-desktop">
-                        <span class="product-price-old">€954.00</span>
-                        <span class="product-price-new">€294</span>
+                        <span class="product-price-old">€{{PRODUCT_3_OLD_PRICE}}</span>
+                        <span class="product-price-new">€{{PRODUCT_3_NEW_PRICE}}</span>
                     </div>
                 </div>
 
@@ -108,18 +101,16 @@
                     </div>
 
                     <div class="product-price hide-on-mobile">
-                        <span class="product-price-old">€954.00</span>
-                        <span class="product-price-new">€294</span>
+                        <span class="product-price-old">€{{PRODUCT_3_OLD_PRICE}}</span>
+                        <span class="product-price-new">€{{PRODUCT_3_NEW_PRICE}}</span>
                     </div>
                 </div>
             </div>
 
             <div class="product-item bundle smartplayer-click-event">
-                <a href="https://gm.lifepuregreen.shop/click/2" class="product-link"></a>
-
-                <div class="col">
-                    <h3 class="product-title">3 DOSEN</h3>
-                    <p class="product-description">90-Tage-Vorrat</p>
+                <a class="product-item smartplayer-click-event smartplayer-scroll-event" href="{{PRODUCT_2_CHECKOUT_LINK}}">
+                    <h3 class="product-title">{{PRODUCT_2_TITLE}}</h3>
+                    <h4 class="product-subtitle">{{PRODUCT_2_SUBTITLE}}</h4>
 
                     <div class="product-image">
                         <img src="./assets/images/products/2.webp" alt="Product Image" />
@@ -127,8 +118,8 @@
                     </div>
 
                     <div class="product-price hide-on-desktop">
-                        <span class="product-price-old">€477.00</span>
-                        <span class="product-price-new">€207</span>
+                        <span class="product-price-old">€{{PRODUCT_2_OLD_PRICE}}</span>
+                        <span class="product-price-new">€{{PRODUCT_2_NEW_PRICE}}</span>
                     </div>
                 </div>
 
@@ -160,26 +151,24 @@
                     </div>
 
                     <div class="product-price hide-on-mobile">
-                        <span class="product-price-old">€477.00</span>
-                        <span class="product-price-new">€207</span>
+                        <span class="product-price-old">€{{PRODUCT_2_OLD_PRICE}}</span>
+                        <span class="product-price-new">€{{PRODUCT_2_NEW_PRICE}}</span>
                     </div>
                 </div>
             </div>
 
             <div class="product-item basic smartplayer-click-event">
-                <a href="https://gm.lifepuregreen.shop/click/1" class="product-link"></a>
-
-                <div class="col">
-                    <h3 class="product-title">2 DOSEN</h3>
-                    <p class="product-description">60-Tage-Vorrat</p>
+                <a class="product-item smartplayer-click-event smartplayer-scroll-event" href="{{PRODUCT_1_CHECKOUT_LINK}}">
+                    <h3 class="product-title">{{PRODUCT_1_TITLE}}</h3>
+                    <h4 class="product-subtitle">{{PRODUCT_1_SUBTITLE}}</h4>
 
                     <div class="product-image">
                         <img src="./assets/images/products/3.webp" alt="Product Image" />
                     </div>
 
                     <div class="product-price hide-on-desktop">
-                        <span class="product-price-old">€316.00</span>
-                        <span class="product-price-new">€158.00</span>
+                        <span class="product-price-old">€{{PRODUCT_1_OLD_PRICE}}</span>
+                        <span class="product-price-new">€{{PRODUCT_1_NEW_PRICE}}</span>
                     </div>
                 </div>
 
@@ -200,8 +189,8 @@
                     </div>
 
                     <div class="product-price hide-on-mobile">
-                        <span class="product-price-old">€316.00</span>
-                        <span class="product-price-new">€158.00</span>
+                        <span class="product-price-old">€{{PRODUCT_1_OLD_PRICE}}</span>
+                        <span class="product-price-new">€{{PRODUCT_1_NEW_PRICE}}</span>
                     </div>
                 </div>
             </div>

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Watch the video</title>
+        <title>{{PAGE_TITLE}}</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <link rel="shortcut icon" href="./assets/images/favicon.png" type="image/x-icon" />
 
         <meta
             name="description"
-            content="{{PRODUCT_NAME}} - Natural solution." />
+            content="{{NOME_PRODUTO}} é um composto 100% natural, aprovado pela ANVISA e não possui nenhum efeito colateral. Além disso, o {{NOME_PRODUTO}} não tem contra indicações, sendo consumido por milhares de pessoas todos os dias." />
         
         <!-- preconnect -->
         <link rel="preconnect" href="https://gm.lifepuregreen.shop" crossorigin>
@@ -20,13 +20,14 @@
         <link rel="stylesheet" href="./assets/css/styles.min.css" />
         <!-- css -->
 
-        <!-- vTurb -->
         {{VTURB_HEAD}}
         <!-- Fim vTurb -->
 
         <!-- Redtrack -->
-        <script type="text/javascript" src="https://gm.{{DOMAIN}}/track.js"></script>
+        <script type="text/javascript" src="https://gm.{{DOMINIO_REDTRACK}}/track.js"></script>
         <!-- Fim Redtrack -->
+        
+        {{FACEBOOK_PIXEL}}
     </head>
 
     <body>
@@ -35,7 +36,7 @@
                 <div class="player-container">
                     <!-- vTurb -->
                     {{VTURB_PLAYER}}
-                    <!-- Fim vTurb -->
+                <!-- Fim vTurb -->
                 </div>
             </div>
 
@@ -47,7 +48,7 @@
 
         <section class="claim-discount esconder">
             <div class="container">
-                <h2 class="section-title">Claim Your Discounted {{PRODUCT_NAME}}<span>®</span> <br />Below While Supplies Last</h2>
+                <h2 class="section-title">Claim Your Discounted VigorBoost<span>®</span> <br />Below While Supplies Last</h2>
                 <div class="claim-timer timer" data-time="1200">00:00</div>
             </div>
         </section>
@@ -56,25 +57,23 @@
     <div class="container">
         <div class="products-container">
             <div class="product-item most-popular">
-                <a href="{{PRODUCT_1_CHECKOUT_LINK}}" class="product-link"></a>
-
-                <div class="col">
-                    <h3 class="product-title">{{PRODUCT_1_TITLE}}</h3>
-                    <p class="product-description">{{PRODUCT_1_SUBTITLE}}</p>
+                <a class="product-item smartplayer-click-event smartplayer-scroll-event" href="{{PRODUCT_3_CHECKOUT_LINK}}">
+                    <h3 class="product-title">{{PRODUCT_3_TITLE}}</h3>
+                    <h4 class="product-subtitle">{{PRODUCT_3_SUBTITLE}}</h4>
 
                     <div class="product-image">
                         <img src="./assets/images/products/1.webp" alt="Product Image" />
-                        <p class="save">SAVE <span>${{PRODUCT_1_SAVE}}</span></p>
+                        <p class="save">SAVE <span>$660</span></p>
                     </div>
 
                     <div class="product-price hide-on-desktop">
-                        <span class="product-price-old">${{PRODUCT_1_PRICE_OLD}}</span>
-                        <span class="product-price-new">${{PRODUCT_1_PRICE_NEW}}</span>
+                        <span class="product-price-old">${{PRODUCT_3_OLD_PRICE}}</span>
+                        <span class="product-price-new">${{PRODUCT_3_NEW_PRICE}}</span>
                     </div>
                 </div>
 
                 <div class="col">
-                    <h4 class="price-per-bottle"><b>$</b> {{PRODUCT_1_PRICE_PER_BOTTLE}} <span>/ Bottle</span></h4>
+                    <h4 class="price-per-bottle"><b>$</b> 49 <span>/ Bottle</span></h4>
 
                     <div class="product-benefits">
                         <p class="vip-support">
@@ -101,32 +100,30 @@
                     </div>
 
                     <div class="product-price hide-on-mobile">
-                        <span class="product-price-old">${{PRODUCT_1_PRICE_OLD}}</span>
-                        <span class="product-price-new">${{PRODUCT_1_PRICE_NEW}}</span>
+                        <span class="product-price-old">${{PRODUCT_3_OLD_PRICE}}</span>
+                        <span class="product-price-new">${{PRODUCT_3_NEW_PRICE}}</span>
                     </div>
                 </div>
             </div>
 
             <div class="product-item bundle">
-                <a href="{{PRODUCT_2_CHECKOUT_LINK}}" class="product-link"></a>
-
-                <div class="col">
+                <a class="product-item smartplayer-click-event smartplayer-scroll-event" href="{{PRODUCT_2_CHECKOUT_LINK}}">
                     <h3 class="product-title">{{PRODUCT_2_TITLE}}</h3>
-                    <p class="product-description">{{PRODUCT_2_SUBTITLE}}</p>
+                    <h4 class="product-subtitle">{{PRODUCT_2_SUBTITLE}}</h4>
 
                     <div class="product-image">
                         <img src="./assets/images/products/2.webp" alt="Product Image" />
-                        <p class="save">SAVE <span>${{PRODUCT_2_SAVE}}</span></p>
+                        <p class="save">SAVE <span>$270</span></p>
                     </div>
 
                     <div class="product-price hide-on-desktop">
-                        <span class="product-price-old">${{PRODUCT_2_PRICE_OLD}}</span>
-                        <span class="product-price-new">${{PRODUCT_2_PRICE_NEW}}</span>
+                        <span class="product-price-old">${{PRODUCT_2_OLD_PRICE}}</span>
+                        <span class="product-price-new">${{PRODUCT_2_NEW_PRICE}}</span>
                     </div>
                 </div>
 
                 <div class="col">
-                    <h4 class="price-per-bottle"><b>$</b> {{PRODUCT_2_PRICE_PER_BOTTLE}} <span>/ Bottle</span></h4>
+                    <h4 class="price-per-bottle"><b>$</b> 59 <span>/ Bottle</span></h4>
 
                     <div class="product-benefits">
                         <p class="vip-support">
@@ -153,31 +150,29 @@
                     </div>
 
                     <div class="product-price hide-on-mobile">
-                        <span class="product-price-old">${{PRODUCT_2_PRICE_OLD}}</span>
-                        <span class="product-price-new">${{PRODUCT_2_PRICE_NEW}}</span>
+                        <span class="product-price-old">${{PRODUCT_2_OLD_PRICE}}</span>
+                        <span class="product-price-new">${{PRODUCT_2_NEW_PRICE}}</span>
                     </div>
                 </div>
             </div>
 
             <div class="product-item basic">
-                <a href="{{PRODUCT_3_CHECKOUT_LINK}}" class="product-link"></a>
-
-                <div class="col">
-                    <h3 class="product-title">{{PRODUCT_3_TITLE}}</h3>
-                    <p class="product-description">{{PRODUCT_3_SUBTITLE}}</p>
+                <a class="product-item smartplayer-click-event smartplayer-scroll-event" href="{{PRODUCT_1_CHECKOUT_LINK}}">
+                    <h3 class="product-title">{{PRODUCT_1_TITLE}}</h3>
+                    <h4 class="product-subtitle">{{PRODUCT_1_SUBTITLE}}</h4>
 
                     <div class="product-image">
                         <img src="./assets/images/products/3.webp" alt="Product Image" />
                     </div>
 
                     <div class="product-price hide-on-desktop">
-                        <span class="product-price-old">${{PRODUCT_3_PRICE_OLD}}</span>
-                        <span class="product-price-new">${{PRODUCT_3_PRICE_NEW}}</span>
+                        <span class="product-price-old">${{PRODUCT_1_OLD_PRICE}}</span>
+                        <span class="product-price-new">${{PRODUCT_1_NEW_PRICE}}</span>
                     </div>
                 </div>
 
                 <div class="col">
-                    <h4 class="price-per-bottle"><b>$</b> {{PRODUCT_3_PRICE_PER_BOTTLE}} <span>/ Bottle</span></h4>
+                    <h4 class="price-per-bottle"><b>$</b> 79 <span>/ Bottle</span></h4>
                     <p class="shipping">+ $9.99 Shipping</p>
 
                     <button class="product-button smartplayer-click-event">
@@ -193,8 +188,8 @@
                     </div>
 
                     <div class="product-price hide-on-mobile">
-                        <span class="product-price-old">${{PRODUCT_3_PRICE_OLD}}</span>
-                        <span class="product-price-new">${{PRODUCT_3_PRICE_NEW}}</span>
+                        <span class="product-price-old">${{PRODUCT_1_OLD_PRICE}}</span>
+                        <span class="product-price-new">${{PRODUCT_1_NEW_PRICE}}</span>
                     </div>
                 </div>
             </div>

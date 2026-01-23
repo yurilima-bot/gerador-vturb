@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
-        <title>Assista ao vídeo</title>
+        <title>{{PAGE_TITLE}}</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <link rel="shortcut icon" href="./assets/images/favicon.png" type="image/x-icon" />
@@ -19,11 +19,15 @@
         <link rel="stylesheet" href="./assets/css/styles.min.css" />
         <!-- css -->
 
+        <!-- vTurb -->
         {{VTURB_HEAD}}
+        <!-- Fim vTurb -->
 
         <!-- Redtrack -->
         <script type="text/javascript" src="https://gm.{{DOMINIO_REDTRACK}}/track.js"></script>
         <!-- Fim Redtrack -->
+        
+        {{FACEBOOK_PIXEL}}
     </head>
 
     <body>
@@ -32,7 +36,7 @@
                 <div class="player-container">                  
                     <!-- vTurb -->
                     {{VTURB_PLAYER}}
-                    <!-- Fim vTurb -->
+                <!-- Fim vTurb -->
                 </div>
 
                 <p class="volume-notice">
@@ -44,52 +48,27 @@
 
         <section class="kits esconder">
             <div class="products-container">
-                <a class="product-item smartplayer-click-event smartplayer-scroll-event" href="{{PRODUCT_1_CHECKOUT_LINK}}">
-                    <h3 class="product-title">{{PRODUCT_1_TITLE}}</h3>
-                    <h4 class="product-subtitle">{{PRODUCT_1_SUBTITLE}}</h4>
+                <a class="product-item smartplayer-click-event smartplayer-scroll-event" href="{{PRODUCT_4_CHECKOUT_LINK}}">
+                    <h3 class="product-title">{{PRODUCT_4_TITLE}}</h3>
+                    <h4 class="product-subtitle">{{PRODUCT_4_SUBTITLE}}</h4>
 
                     <img src="./assets/images/blank.png" class="product-image placeholder-loader" width="316" height="316" data-src="./assets/images/products/0.webp" />
 
                     <div class="price-container">
-                        <p class="price-installments">{{PRODUCT_1_INSTALLMENTS}}x de</p>
-                        <p class="price-value">R$ {{PRODUCT_1_INSTALLMENT_VALUE}}</p>
+                        <p class="price-installments">{{PRODUCT_4_INSTALLMENTS}}x de</p>
+                        <p class="price-value">R$ {{PRODUCT_4_INSTALLMENT_VALUE}}</p>
                     </div>
 
                     <button class="product-button">Comprar agora!</button>
 
-                    <p class="total-price">Total: R$ {{PRODUCT_1_ORIGINAL_PRICE}}</p>
+                    <p class="total-price">Total: R$ {{PRODUCT_4_ORIGINAL_PRICE}}</p>
 
                     <p class="shipping">
                         Frete Grátis <img src="./assets/images/blank.png" width="49" height="20" class="placeholder-loader" data-src="./assets/images/shipping.webp" />
                     </p>
 
                     <p class="warranty">
-                        Garantia de 600 dias
-                        <img src="./assets/images/blank.png" width="351" height="55" class="placeholder-loader" data-src="./assets/images/payments.webp" />
-                    </p>
-                </a>
-
-                <a class="product-item smartplayer-click-event smartplayer-scroll-event" href="{{PRODUCT_2_CHECKOUT_LINK}}">
-                    <h3 class="product-title">{{PRODUCT_2_TITLE}}</h3>
-                    <h4 class="product-subtitle">{{PRODUCT_2_SUBTITLE}}</h4>
-
-                    <img src="./assets/images/blank.png" class="product-image placeholder-loader" width="316" height="316" data-src="./assets/images/products/1.webp" />
-
-                    <div class="price-container">
-                        <p class="price-installments">{{PRODUCT_2_INSTALLMENTS}}x de</p>
-                        <p class="price-value">R$ {{PRODUCT_2_INSTALLMENT_VALUE}}</p>
-                    </div>
-
-                    <button class="product-button">Comprar agora!</button>
-
-                    <p class="total-price">Total: R$ {{PRODUCT_2_ORIGINAL_PRICE}}</p>
-
-                    <p class="shipping">
-                        Frete Grátis <img src="./assets/images/blank.png" width="49" height="20" class="placeholder-loader" data-src="./assets/images/shipping.webp" />
-                    </p>
-
-                    <p class="warranty">
-                        Garantia de 300 dias
+                        Garantia de {{WARRANTY_10_BOTTLES}}
                         <img src="./assets/images/blank.png" width="351" height="55" class="placeholder-loader" data-src="./assets/images/payments.webp" />
                     </p>
                 </a>
@@ -98,7 +77,7 @@
                     <h3 class="product-title">{{PRODUCT_3_TITLE}}</h3>
                     <h4 class="product-subtitle">{{PRODUCT_3_SUBTITLE}}</h4>
 
-                    <img src="./assets/images/blank.png" class="product-image placeholder-loader" width="316" height="316" data-src="./assets/images/products/2.webp" />
+                    <img src="./assets/images/blank.png" class="product-image placeholder-loader" width="316" height="316" data-src="./assets/images/products/1.webp" />
 
                     <div class="price-container">
                         <p class="price-installments">{{PRODUCT_3_INSTALLMENTS}}x de</p>
@@ -114,32 +93,57 @@
                     </p>
 
                     <p class="warranty">
-                        Garantia de 180 dias
+                        Garantia de {{WARRANTY_5_BOTTLES}}
                         <img src="./assets/images/blank.png" width="351" height="55" class="placeholder-loader" data-src="./assets/images/payments.webp" />
                     </p>
                 </a>
 
-                <a class="product-item smartplayer-click-event smartplayer-scroll-event" href="{{PRODUCT_4_CHECKOUT_LINK}}">
-                    <h3 class="product-title">{{PRODUCT_4_TITLE}}</h3>
-                    <h4 class="product-subtitle">{{PRODUCT_4_SUBTITLE}}</h4>
+                <a class="product-item smartplayer-click-event smartplayer-scroll-event" href="{{PRODUCT_2_CHECKOUT_LINK}}">
+                    <h3 class="product-title">{{PRODUCT_2_TITLE}}</h3>
+                    <h4 class="product-subtitle">{{PRODUCT_2_SUBTITLE}}</h4>
 
-                    <img src="./assets/images/blank.png" class="product-image placeholder-loader" width="316" height="316" data-src="./assets/images/products/3.webp" />
+                    <img src="./assets/images/blank.png" class="product-image placeholder-loader" width="316" height="316" data-src="./assets/images/products/2.webp" />
 
                     <div class="price-container">
-                        <p class="price-installments">{{PRODUCT_4_INSTALLMENTS}}x de</p>
-                        <p class="price-value">R$ {{PRODUCT_4_INSTALLMENT_VALUE}}</p>
+                        <p class="price-installments">{{PRODUCT_2_INSTALLMENTS}}x de</p>
+                        <p class="price-value">R$ {{PRODUCT_2_INSTALLMENT_VALUE}}</p>
                     </div>
 
                     <button class="product-button">Comprar agora!</button>
 
-                    <p class="total-price">Total: R$ {{PRODUCT_4_ORIGINAL_PRICE}}</p>
+                    <p class="total-price">Total: R$ {{PRODUCT_2_ORIGINAL_PRICE}}</p>
+
+                    <p class="shipping">
+                        Frete Grátis <img src="./assets/images/blank.png" width="49" height="20" class="placeholder-loader" data-src="./assets/images/shipping.webp" />
+                    </p>
+
+                    <p class="warranty">
+                        Garantia de {{WARRANTY_3_BOTTLES}}
+                        <img src="./assets/images/blank.png" width="351" height="55" class="placeholder-loader" data-src="./assets/images/payments.webp" />
+                    </p>
+                </a>
+
+                <a class="product-item smartplayer-click-event smartplayer-scroll-event" href="{{PRODUCT_1_CHECKOUT_LINK}}">
+                    <h3 class="product-title">{{PRODUCT_1_TITLE}}</h3>
+                    <h4 class="product-subtitle">{{PRODUCT_1_SUBTITLE}}</h4>
+
+                    <img src="./assets/images/blank.png" class="product-image placeholder-loader" width="316" height="316" data-src="./assets/images/products/3.webp" />
+
+                    <div class="price-container">
+                        <p class="price-installments">{{PRODUCT_1_INSTALLMENTS}}x de</p>
+                        <p class="price-value">R$ {{PRODUCT_1_INSTALLMENT_VALUE}}</p>
+                    </div>
+
+                    <button class="product-button">Comprar agora!</button>
+
+                    <p class="total-price">Total: R$ {{PRODUCT_1_ORIGINAL_PRICE}}</p>
 
                     <p class="shipping">
                         +R$ 15 de frete <img src="./assets/images/blank.png" width="49" height="20" class="placeholder-loader" data-src="./assets/images/shipping.webp" />
                     </p>
 
                     <p class="warranty">
-                        Garantia de 60 dias
+                        Garantia de {{WARRANTY_1_BOTTLE}}
                         <img src="./assets/images/blank.png" width="351" height="55" class="placeholder-loader" data-src="./assets/images/payments.webp" />
                     </p>
                 </a>
@@ -158,11 +162,11 @@
                     data-src="./assets/images/garantia.webp" />
 
                 <div class="garantia-text">
-                    <h2>Garantia Blindada {{NOME_PRODUTO}}</h2>
+                    <h2>Garantia Blindada DuraMax</h2>
 
-                    <p>Quando você pedir o {{NOME_PRODUTO}}, também receberá uma <b>garantia blindada de 60 dias em cada frasco</b> para solicitar todo o seu dinheiro de volta.</p>
+                    <p>Quando você pedir o DuraMax, também receberá uma <b>garantia blindada de 60 dias em cada frasco</b> para solicitar todo o seu dinheiro de volta.</p>
                     <p>
-                        Estamos tão confiantes que o {{NOME_PRODUTO}} vai te trazer resultados, que se você não estiver 100% satisfeito e não notar uma grande melhora na sua qualidade
+                        Estamos tão confiantes que o DuraMax vai te trazer resultados, que se você não estiver 100% satisfeito e não notar uma grande melhora na sua qualidade
                         de vida, <b>nós vamos te devolver até o último centavo pago.</b>
                     </p>
                     <p>
@@ -180,13 +184,13 @@
             <div class="questions-container">
                 <div class="question-item">
                     <div class="question-item__title">
-                        <h3>O que é o {{NOME_PRODUTO}}?</h3>
+                        <h3>O que é o DuraMax?</h3>
                         <img class="arrow" width="24" height="24" src="./assets/images/arrow-down.svg" alt="" />
                     </div>
 
                     <div class="question-item__description">
-                        <p>O {{NOME_PRODUTO}} é um composto 100% natural, aprovado pela ANVISA e não possui nenhum efeito colateral.</p>
-                        <p>Além disso, o {{NOME_PRODUTO}} não tem contra indicações, sendo consumido por milhares de pessoas todos os dias.</p>
+                        <p>O DuraMax é um composto 100% natural, aprovado pela ANVISA e não possui nenhum efeito colateral.</p>
+                        <p>Além disso, o DuraMax não tem contra indicações, sendo consumido por milhares de pessoas todos os dias.</p>
                     </div>
                 </div>
 
@@ -198,7 +202,7 @@
 
                     <div class="question-item__description">
                         <p>
-                            Os melhores resultados surgem quando você toma o {{NOME_PRODUTO}} por 3 meses ou mais. Dessa forma, ele tem tempo suficiente para agir em todo o seu corpo.
+                            Os melhores resultados surgem quando você toma o DuraMax por 3 meses ou mais. Dessa forma, ele tem tempo suficiente para agir em todo o seu corpo.
                         </p>
                         <p>Por isso, recomendamos fortemente que você aproveite os pacotes de desconto de 3 ou 5 frascos.</p>
                     </div>
@@ -206,7 +210,7 @@
 
                 <div class="question-item">
                     <div class="question-item__title">
-                        <h3>Como devo tomar o {{NOME_PRODUTO}}?</h3>
+                        <h3>Como devo tomar o DuraMax?</h3>
                         <img class="arrow" width="24" height="24" src="./assets/images/arrow-down.svg" alt="" />
                     </div>
 
@@ -223,13 +227,13 @@
 
                     <div class="question-item__description">
                         <p>Os resultados variam de acordo com o organismo de cada pessoa.</p>
-                        <p>Mas os clientes do {{NOME_PRODUTO}} afirmam terem notado sinais de melhora já nos primeiros dias de uso.</p>
+                        <p>Mas os clientes do DuraMax afirmam terem notado sinais de melhora já nos primeiros dias de uso.</p>
                     </div>
                 </div>
 
                 <div class="question-item">
                     <div class="question-item__title">
-                        <h3>O {{NOME_PRODUTO}} é vendido em farmácia ou em lojas físicas?</h3>
+                        <h3>O DuraMax é vendido em farmácia ou em lojas físicas?</h3>
                         <img class="arrow" width="24" height="24" src="./assets/images/arrow-down.svg" alt="" />
                     </div>
 
@@ -246,7 +250,7 @@
                     </div>
 
                     <div class="question-item__description">
-                        <p>Cada frasco do {{NOME_PRODUTO}} vem com nossa garantia blindada de 60 dias.</p>
+                        <p>Cada frasco do DuraMax vem com nossa garantia blindada de 60 dias.</p>
                         <p>
                             Se, por algum motivo, você não estiver satisfeito com os resultados, basta devolver os frascos (mesmo que vazios), e nós reembolsaremos 100% do seu
                             dinheiro, sem perguntas.
@@ -261,8 +265,8 @@
                     </div>
 
                     <div class="question-item__description">
-                        <p>Escolha o seu kit acima e clique no botão escrito "Próximo Passo".</p>
-                        <p>Na próxima página, basta preencher as suas informações e dizer para onde devemos enviar o seu pedido do {{NOME_PRODUTO}}.</p>
+                        <p>Escolha o seu kit acima e clique no botão escrito “Próximo Passo”.</p>
+                        <p>Na próxima página, basta preencher as suas informações e dizer para onde devemos enviar o seu pedido do DuraMax.</p>
                     </div>
                 </div>
             </div>
